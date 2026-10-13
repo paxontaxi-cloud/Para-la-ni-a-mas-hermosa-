@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080b22">
+<title>La niña de mis ojos ✨</title>
+<style>
+:root{--bg:#080b22;--pink:#ffd7ef;--gold:#ffe8ad;--lav:#c8c8ff;--glass:rgba(16,20,55,.72)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse at 50% 15%,#20265b 0,#101535 38%,#060817 100%);color:#fff7ff;font-family:Georgia,'Times New Roman',serif;min-height:100vh;overflow-x:hidden}
+#sky{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+main{position:relative;z-index:1;width:min(900px,92vw);margin:auto;padding:28px 0 60px}
+.hero{min-height:88vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px 10px}
+.eyebrow{letter-spacing:.28em;text-transform:uppercase;color:#d5d6ff;font:11px/1.8 system-ui,sans-serif}
+h1{font-size:clamp(2.8rem,10vw,6.6rem);line-height:.98;font-weight:normal;margin:20px 0;color:var(--pink);text-shadow:0 0 24px #ffb8e855,0 0 60px #9b9cff44}
+.subtitle{font-size:clamp(1.05rem,3.2vw,1.5rem);color:var(--gold);line-height:1.6;margin:0 auto 30px;max-width:650px}
+button,a.btn{font:600 14px system-ui,sans-serif;letter-spacing:.03em;color:#17132c;background:linear-gradient(135deg,#ffe9bd,#ffcce9);border:0;border-radius:999px;padding:13px 22px;cursor:pointer;text-decoration:none;display:inline-block;box-shadow:0 5px 28px #f7bfe633}
+button.secondary{background:#ffffff12;color:#fff;border:1px solid #ffffff35;box-shadow:none}
+section{margin:22px 0;padding:clamp(22px,5vw,42px);border:1px solid #d6d6ff2b;border-radius:26px;background:var(--glass);backdrop-filter:blur(10px);box-shadow:0 18px 60px #0002}
+h2{font-weight:normal;text-align:center;color:var(--gold);font-size:clamp(1.8rem,5vw,2.6rem);margin:0 0 12px}
+.intro{text-align:center;color:#d7d9ff;font:14px/1.8 system-ui,sans-serif;margin:0 auto 24px;max-width:620px}
+.letter{white-space:pre-wrap;line-height:1.9;font-size:1.12rem;color:#fff2fa;min-height:140px;outline:none;border-radius:12px;padding:18px;border:1px dashed #ffffff35;background:#ffffff08}
+.letter:empty:before{content:attr(data-placeholder);color:#c5c5e4}
+.center{text-align:center}
+.musicbox{display:grid;gap:12px;max-width:600px;margin:auto}
+input,textarea{width:100%;border-radius:12px;border:1px solid #ffffff38;background:#080b22;color:#fff;padding:13px;font:14px/1.5 system-ui,sans-serif}
+label{font:12px system-ui,sans-serif;color:#d7d9ff;display:block;margin-bottom:6px}
+.note{font:12px/1.6 system-ui,sans-serif;color:#b9bddf}
+#player{width:100%;margin-top:8px;border-radius:12px}
+.footer{text-align:center;color:#bfc1e8;font-size:1rem;line-height:1.9;padding:32px 8px}
+.sparkle{color:var(--gold);font-size:1.2rem}
+.editor{display:none}
+.editor.show{display:block}
+hr{border:0;border-top:1px solid #ffffff20;margin:24px 0}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<canvas id="sky" aria-hidden="true"></canvas>
+<main>
+  <header class="hero">
+    <div class="eyebrow">Un pequeño universo hecho para ti</div>
+    <h1>La niña<br>de mis ojos</h1>
+    <p class="subtitle">Para la persona más especial del mundo. <span class="sparkle">✧</span></p>
+    <button onclick="document.getElementById('carta').scrollIntoView({behavior:'smooth'})">Tengo algo que decirte ↓</button>
+    <p class="note" style="margin-top:24px">Hecho con cariño, bajo el mismo cielo.</p>
+  </header>
+
+  <section id="carta">
+    <h2>Una carta para ti</h2>
+    <p class="intro">Hay palabras que merecen su propio espacio y un momento tranquilo para leerlas.</p>
+    <div id="letter" class="letter" contenteditable="true" role="textbox" aria-label="Carta personal editable" data-placeholder="Aquí puedes escribir tu carta. Toca este espacio y escribe tus propias palabras..."></div>
+    <p class="note center">Este espacio es editable en tu navegador. Para que Luz vea tu carta, usa el botón “Preparar mi página” más abajo y publica el archivo que descargues.</p>
+  </section>
+
+  <section>
+    <h2>Nuestra canción</h2>
+    <p class="intro">Elige la canción que quieras dedicarle. Puedes pegar un enlace directo a un archivo de audio o un enlace de YouTube.</p>
+    <div class="musicbox">
+      <div>
+        <label for="songTitle">Nombre de la canción (opcional)</label>
+        <input id="songTitle" placeholder="Título de la canción y artista">
+      </div>
+      <div>
+        <label for="songUrl">Enlace de la canción</label>
+        <input id="songUrl" type="url" placeholder="Pega aquí el enlace cuando lo elijas">
+      </div>
+      <button class="secondary" onclick="previewSong()">Probar enlace</button>
+      <div id="songPreview" class="note" aria-live="polite"></div>
+      <audio id="player" controls style="display:none"></audio>
+    </div>
+  </section>
+
+  <section>
+    <h2>Un deseo bajo las estrellas</h2>
+    <p class="intro">Que nunca nos falten motivos para mirarnos con ternura, escucharnos con el corazón y crear recuerdos que nos hagan sonreír.</p>
+    <div class="center"><span class="sparkle">✦　✧　♡　✧　✦</span></div>
+  </section>
+
+  <section>
+    <h2>Hazla tuya</h2>
+    <p class="intro">Cuando hayas escrito tu carta y añadido tu canción, prepara una versión final para compartirla con Luz.</p>
+    <div class="center"><button onclick="downloadFinal()">Preparar mi página ✨</button></div>
+    <p class="note center" style="margin-top:14px">Se descargará un archivo HTML con tu carta y el enlace de la canción incluidos. Ese archivo será el que publiques gratis.</p>
+  </section>
+
+  <footer class="footer">Bajo millones de estrellas, hay una persona que hace mi mundo más bonito. <span class="sparkle">♡</span></footer>
+</main>
+<script>
+(function(){
+ const canvas=document.getElementById('sky'),ctx=canvas.getContext('2d');let w,h,stars=[];
+ function resize(){w=canvas.width=innerWidth*devicePixelRatio;h=canvas.height=innerHeight*devicePixelRatio;canvas.style.width=innerWidth+'px';canvas.style.height=innerHeight+'px';stars=Array.from({length:Math.min(220,Math.floor(innerWidth/4))},()=>({x:Math.random()*w,y:Math.random()*h,r:(Math.random()*1.5+.25)*devicePixelRatio,a:Math.random()*.7+.2,p:Math.random()*6.28,s:Math.random()*.012+.003}));}
+ function draw(){ctx.clearRect(0,0,w,h);for(const s of stars){s.p+=s.s;const alpha=s.a*(.65+.35*Math.sin(s.p));ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle='rgba(255,239,255,'+alpha+')';ctx.fill();}requestAnimationFrame(draw)}
+ addEventListener('resize',resize);resize();draw();
+})();
+function previewSong(){
+ const url=document.getElementById('songUrl').value.trim(),preview=document.getElementById('songPreview'),audio=document.getElementById('player');
+ audio.style.display='none';audio.removeAttribute('src');preview.textContent='';
+ if(!url){preview.textContent='Pega primero el enlace de tu canción.';return}
+ if(/youtube\.com|youtu\.be/i.test(url)){preview.innerHTML='El enlace de YouTube quedó guardado para la versión final. Para reproducirlo, Luz podrá abrir el enlace.';return}
+ if(/\.(mp3|ogg|wav|m4a)(\?.*)?$/i.test(url)){audio.src=url;audio.style.display='block';audio.load();preview.textContent='Si el enlace apunta directamente a un archivo de audio, podrás probarlo aquí.';return}
+ preview.textContent='Este enlace se conservará en tu página final. Si no es un enlace directo a audio, se abrirá como enlace para escuchar la canción.';
+}
+function escapeHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
+function downloadFinal(){
+ const letter=document.getElementById('letter').innerText.trim(),title=document.getElementById('songTitle').value.trim(),url=document.getElementById('songUrl').value.trim();
+ if(!letter && !confirm('Todavía no has escrito la carta. ¿Quieres preparar la página así y escribirla después?'))return;
+ const letterHtml=escapeHtml(letter).replace(/\n/g,'<br>');
+ const safeTitle=escapeHtml(title||'Nuestra canción'),safeUrl=escapeHtml(url);
+ let songBlock='';
+ if(url){
+   if(/\.(mp3|ogg|wav|m4a)(\?.*)?$/i.test(url)) songBlock='<p>'+safeTitle+'</p><audio controls src="'+safeUrl+'" style="width:100%"></audio>';
+   else songBlock='<p>'+safeTitle+'</p><p><a class="btn" href="'+safeUrl+'" target="_blank" rel="noopener">Escuchar nuestra canción ♫</a></p>';
+ }else songBlock='<p class="note">Aquí irá la canción que elijas.</p>';
+ const original=document.documentElement.outerHTML;
+ let finalDoc=original.replace(/<div id="letter"[^>]*>[\s\S]*?<\/div>/,'<div id="letter" class="letter">'+letterHtml+'</div>');
+ finalDoc=finalDoc.replace(/<div class="musicbox">[\s\S]*?<\/div>\s*<\/section>/,'<div class="musicbox">'+songBlock+'</div></section>');
+ finalDoc=finalDoc.replace(/<section>\s*<h2>Hazla tuya<\/h2>[\s\S]*?<\/section>/,'');
+ finalDoc=finalDoc.replace(/<p class="note center">Este espacio es editable en tu navegador[\s\S]*?<\/p>/,'');
+ finalDoc=finalDoc.replace(/<script>[\s\S]*?<\/script>/,'<script>(function(){const c=document.getElementById("sky"),x=c.getContext("2d");let w,h,a=[];function r(){w=c.width=innerWidth*devicePixelRatio;h=c.height=innerHeight*devicePixelRatio;c.style.width=innerWidth+"px";c.style.height=innerHeight+"px";a=Array.from({length:Math.min(220,Math.floor(innerWidth/4))},()=>({x:Math.random()*w,y:Math.random()*h,r:(Math.random()*1.5+.25)*devicePixelRatio,p:Math.random()*6.28,s:Math.random()*.012+.003}));}function d(){x.clearRect(0,0,w,h);a.forEach(s=>{s.p+=s.s;x.beginPath();x.arc(s.x,s.y,s.r,0,Math.PI*2);x.fillStyle="rgba(255,239,255,"+(.4+.4*Math.sin(s.p))+")";x.fill()});requestAnimationFrame(d)}addEventListener("resize",r);r();d()})();<\/script>');
+ const blob=new Blob(['<!doctype html>\n'+finalDoc],{type:'text/html;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='index.html';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1500);
+}
+</script>
+</body>
+</html>
